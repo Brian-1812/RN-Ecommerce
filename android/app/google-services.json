@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "782334662144",
+    "firebase_url": "https://onmarket-69720.firebaseio.com",
+    "project_id": "onmarket-69720",
+    "storage_bucket": "onmarket-69720.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:782334662144:android:b8945e7cbe9624a30a2ae5",
+        "android_client_info": {
+          "package_name": "com.onmarket"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "782334662144-3a9lii0c6omshfokil2o1gmf4io0k3u8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.onmarket",
+            "certificate_hash": "c4ddee8b0d8d1847c86465c2781ef30f4b99dc90"
+          }
+        },
+        {
+          "client_id": "782334662144-vrlqk071aoph2vhnmpan3n3e0tujdlfm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAh1CmjvqiHS7uTUJJ_NOiDlnShQ35-17g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "782334662144-vrlqk071aoph2vhnmpan3n3e0tujdlfm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
