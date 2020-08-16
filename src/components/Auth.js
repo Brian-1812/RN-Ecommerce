@@ -1,43 +1,43 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5'
+import { View} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import LoginView from './LoginView'
+import Userprofile from './Userprofile'
 
-
-const Auth = () => {
+const Auth = ({navigation}) => {
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
-
+  
+  
   // Handle user state changes
   function onAuthStateChanged(user) {
     setUser(user);
     if (initializing) setInitializing(false);
+    if(user){
+      user.reload()
+      .then(()=>console.log("Auth/user reloading"))
+      .catch(err=>console.log(err))
+    }
+    
   }
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    
     return subscriber; // unsubscribe on unmount
   }, []);
 
   if (initializing) return null;
-
+  
   if (!user) {
+    console.log('Email not verified or null')
     return (
-      <LoginView/>
+      <LoginView navigation={navigation} style={{flex:1, backgroundColor:'#fff'}}/>
     );
   }
 
   return (
-    <View>
-      <Icon name="user-alt" size={20}/>
-      <Text>Welcome {user.email}</Text>
-      <Button title="Logout" onPress={()=>{
-          auth()
-          .signOut()
-          .then(() => console.log('User signed out!'));
-      }}/>
-    </View>
+    <Userprofile/>
   );
 };
 

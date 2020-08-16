@@ -1,8 +1,11 @@
 import React from 'react'
 import { View, Text } from 'react-native'
+import Auth from '../components/Auth'
 
 export default function Profile() {
     return (
-        <View><Text>Salom Profile</Text></View>
+        <View style={{flex:1, backgroundColor:'#fff', justifyContent: 'center'}}>
+            <Auth/>
+        </View>
     )
 }

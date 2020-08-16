@@ -5,6 +5,7 @@ import Store from '../tabs/Store'
 import Search from '../tabs/SearchTab'
 import Cart from '../tabs/CartTab'
 import Profile from '../tabs/ProfileTab'
+import AuthStack from './AuthStack'
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -46,7 +47,7 @@ export default function BottomNav() {
               }} />
             <Tab.Screen
             name="Profile"
-            component={Profile}
+            component={AuthStack}
             options={{
                 tabBarLabel: 'Profile',
                 tabBarIcon: ({ color }) => (
