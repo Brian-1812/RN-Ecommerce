@@ -10,9 +10,9 @@ export default function SectionFlatlist({setSection}) {
         {title:"Clothes", uri:'https://source.unsplash.com/1600x900/?clothes,shirt', id: nextId(), selected:false},
         {title:"Parfumes", uri:'https://source.unsplash.com/1600x900/?parfume', id: nextId(), selected:false},
     ])
-    const changeSelected = (id)=>{
+    const changeSelected = (product)=>{
         setMenu(menu.map(item => {
-            if(item.id === id){
+            if(item.id === product.id){
                 item.selected = true
                 setSection(item.title)
             }else{

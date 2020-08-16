@@ -4,7 +4,6 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 import Store from '../tabs/Store'
 import Search from '../tabs/SearchTab'
 import Cart from '../tabs/CartTab'
-import Profile from '../tabs/ProfileTab'
 import AuthStack from './AuthStack'
 
 const Tab = createMaterialBottomTabNavigator();

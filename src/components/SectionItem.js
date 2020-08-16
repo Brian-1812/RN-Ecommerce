@@ -5,7 +5,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 export default function SectionItem({item, changeSelected}) {
 
     return (
-        <TouchableOpacity onPress={()=>changeSelected(item.id)}>
+        <TouchableOpacity onPress={()=>changeSelected(item)}>
         <View style={item.selected?styles.selected:styles.container}>
             <Image source={{uri: item.uri}} style={styles.image}/>
             <Text style={item.selected?styles.selectedTitle:styles.title}>

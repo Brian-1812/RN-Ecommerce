@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { View} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import LoginView from './LoginView'
 import Userprofile from './Userprofile'
@@ -37,7 +36,7 @@ const Auth = ({navigation}) => {
   }
 
   return (
-    <Userprofile/>
+    <Userprofile navigation={navigation}/>
   );
 };
 
