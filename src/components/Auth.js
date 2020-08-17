@@ -14,7 +14,6 @@ const Auth = ({navigation}) => {
     if (initializing) setInitializing(false);
     if(user){
       user.reload()
-      .then(()=>console.log("Auth/user reloading"))
       .catch(err=>console.log(err))
     }
     

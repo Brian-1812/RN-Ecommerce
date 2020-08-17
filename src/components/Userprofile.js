@@ -1,22 +1,21 @@
 import React, {useState} from 'react'
-import {View, Text, TouchableOpacity,Modal, StyleSheet,ScrollView, FlatList} from 'react-native'
+import {View, Text, TouchableOpacity,Modal, StyleSheet,ScrollView,Image, FlatList} from 'react-native'
+import auth from '@react-native-firebase/auth'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Icon1 from 'react-native-vector-icons/FontAwesome5'
 import Icon2 from 'react-native-vector-icons/Ionicons'
-import auth from '@react-native-firebase/auth'
-import Button from './Button'
 import ProfileUpdate from './ProfileUpdate'
 import Products from './Products'
 import SectionItem from './SectionItem'
 
+
+
 export default function Userprofile({navigation}) {
     const [confirmModal, setConfirmModal] = useState(false)
-    // const [profileComplete, setProfileComplete] = useState(false)
+    
     const products = Products.Food
     const user = auth().currentUser
-    // if (!user.displayName || !user.photoURL){
-    //     setProfileComplete(false)
-    // }
+
      const changeSelected = (item) => {
         navigation.navigate('ItemDetails', item)
      }
@@ -24,7 +23,7 @@ export default function Userprofile({navigation}) {
         <View style={styles.container}>
             <ScrollView>
             <View style={styles.header}>
-                <View style={styles.header}>
+                <View style={styles.headerLeft}>
                     {user.photoURL?
                     <Image source={{uri: user.photoURL}} style={styles.profileImage}/>:
                     <Icon style={styles.icon}name="user-circle-o" size={60} color="black"/>}
@@ -36,8 +35,8 @@ export default function Userprofile({navigation}) {
                 <View>
                 <TouchableOpacity onPress={()=>setConfirmModal(true)}><Icon1 style={styles.icon1} name='user-edit' size={20} color='#4b24ab'/></TouchableOpacity>
                 </View>
-            
             </View>
+
             <View>
             <Text style={styles.completedOrders}>Completed orders</Text>
             <FlatList
@@ -98,6 +97,7 @@ const styles = StyleSheet.create({
     completedOrders:{
         color:"#4b24ab",
         margin:15,
+        marginTop:0,
         fontSize:20,
         fontWeight: 'bold'
     },
@@ -113,10 +113,20 @@ const styles = StyleSheet.create({
         alignItems:'center',
         margin: 15,
         justifyContent:'space-between',
-        
+        borderBottomWidth:1,
+        borderBottomColor:"#b434eb",
+    },
+    headerLeft:{
+        flexDirection:'row',
+        alignItems:'center',
+        marginBottom: 5,
+        justifyContent:'space-between',
     },
     name:{
-        margin:10
+        marginLeft:20,
+        color:"#4b24ab",
+        fontSize:20,
+        fontWeight:'bold'
     },
     completeProfile:{
         height:50,
@@ -150,5 +160,11 @@ const styles = StyleSheet.create({
 
         elevation: 15,
 
+    },
+    profileImage:{
+        width:70,
+        height:70,
+        resizeMode:'cover',
+        borderRadius:50
     }
 })
