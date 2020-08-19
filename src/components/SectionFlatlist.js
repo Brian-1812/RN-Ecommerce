@@ -5,10 +5,10 @@ import SectionItem from './SectionItem'
 
 export default function SectionFlatlist({setSection}) {
     const [menu, setMenu] = useState([
-        {title:"Food", uri:'https://source.unsplash.com/1600x900/?meal,soup', id: nextId(), selected:false},
-        {title:"Drinks", uri:'https://source.unsplash.com/1600x900/?tea,coffee,cola', id: nextId(), selected:false},
-        {title:"Clothes", uri:'https://source.unsplash.com/1600x900/?clothes,shirt', id: nextId(), selected:false},
-        {title:"Parfumes", uri:'https://source.unsplash.com/1600x900/?parfume', id: nextId(), selected:false},
+        {title:"Food", image:'https://source.unsplash.com/1600x900/?meal,soup', id: nextId(), selected:false},
+        {title:"Drinks", image:'https://source.unsplash.com/1600x900/?tea,coffee,cola', id: nextId(), selected:false},
+        {title:"Clothes", image:'https://source.unsplash.com/1600x900/?clothes,shirt', id: nextId(), selected:false},
+        {title:"Parfumes", image:'https://source.unsplash.com/1600x900/?parfume', id: nextId(), selected:false},
     ])
     const changeSelected = (product)=>{
         setMenu(menu.map(item => {

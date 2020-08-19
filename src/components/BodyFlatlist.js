@@ -1,11 +1,10 @@
-import React, {useState} from 'react'
+import React, {useState, useContext, useEffect} from 'react'
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
 import BodyItem from './BodyItem'
-import Products from './Products'
+import {ProductsContext} from '../contexts/ProductsContext'
 
 export default function BodyFlatlist({section, navigation}) {
-    let data = Products
-    const [products, setProducts] = useState(data)
+    const {products} = useContext(ProductsContext)
 
     const navigate = (item) =>{
         navigation.navigate('ItemDetails', item)

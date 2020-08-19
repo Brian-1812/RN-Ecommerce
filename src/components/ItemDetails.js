@@ -1,12 +1,15 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { SliderBox } from "react-native-image-slider-box";
 import Button from './Button'
+import storage from '@react-native-firebase/storage'
 
 
 export default function ItemDetails({navigation, route}) {
+    const [loading, setLoading] = useState(true)
     const item = route.params
     const text = `Add to Cart: $${item.price}`
+
     return (
         <View style={styles.container}>
             <ScrollView>

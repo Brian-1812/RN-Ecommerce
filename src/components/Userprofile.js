@@ -1,21 +1,20 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import {View, Text, TouchableOpacity,Modal, StyleSheet,ScrollView,Image, FlatList} from 'react-native'
 import auth from '@react-native-firebase/auth'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Icon1 from 'react-native-vector-icons/FontAwesome5'
 import Icon2 from 'react-native-vector-icons/Ionicons'
 import ProfileUpdate from './ProfileUpdate'
-import Products from './Products'
 import SectionItem from './SectionItem'
+import {ProductsContext} from '../contexts/ProductsContext'
 
 
 
 export default function Userprofile({navigation}) {
     const [confirmModal, setConfirmModal] = useState(false)
     
-    const products = Products.Food
     const user = auth().currentUser
-
+    const {products} = useContext(ProductsContext)
      const changeSelected = (item) => {
         navigation.navigate('ItemDetails', item)
      }
@@ -41,7 +40,7 @@ export default function Userprofile({navigation}) {
             <Text style={styles.completedOrders}>Completed orders</Text>
             <FlatList
                 style={styles.flatlist}
-                data={products}
+                data={products["Food"]}
                 initialNumToRender={3}
                 horizontal={true}
                 keyExtractor={item => item.id}
@@ -55,7 +54,7 @@ export default function Userprofile({navigation}) {
             <Text style={styles.completedOrders}>Saved items</Text>
             <FlatList
                 style={styles.flatlist}
-                data={products}
+                data={products.Drinks}
                 initialNumToRender={3}
                 horizontal={true}
                 keyExtractor={item => item.id}

@@ -1,14 +1,15 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import storage from '@react-native-firebase/storage'
 
 
 export default function BodyItem({item, navigate}) {
-
+    
     return (
         <TouchableOpacity onPress={()=>navigate(item)}>
         <View style={styles.container}>
-            <Image source={{uri: item.uri}} style={styles.image}/>
-            <Text style={item.selected?styles.selectedTitle:styles.title}>
+            <Image source={{uri: item.image}} style={styles.image}/>
+            <Text style={styles.title}>
                 {item.title}
             </Text>
         </View>
