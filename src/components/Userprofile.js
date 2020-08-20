@@ -12,12 +12,11 @@ import {ProductsContext} from '../contexts/ProductsContext'
 
 export default function Userprofile({navigation}) {
     const [confirmModal, setConfirmModal] = useState(false)
-    
     const user = auth().currentUser
     const {products} = useContext(ProductsContext)
-     const changeSelected = (item) => {
+    const changeSelected = (item) => {
         navigation.navigate('ItemDetails', item)
-     }
+    }
     return (
         <View style={styles.container}>
             <ScrollView>

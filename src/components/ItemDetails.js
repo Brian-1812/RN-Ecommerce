@@ -1,14 +1,42 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { SliderBox } from "react-native-image-slider-box";
-import Button from './Button'
-import storage from '@react-native-firebase/storage'
+import firestore from '@react-native-firebase/firestore'
+import auth from '@react-native-firebase/auth'
+import CartButton from './CartButton'
+import {ProductsContext} from '../contexts/ProductsContext'
 
 
-export default function ItemDetails({navigation, route}) {
-    const [loading, setLoading] = useState(true)
+export default function ItemDetails({route}) {
+    const [added, setAdded] = useState(false)
+    const {cart, setCart} = useContext(ProductsContext)
     const item = route.params
-    const text = `Add to Cart: $${item.price}`
+    const user = auth().currentUser
+
+    useEffect(()=>{
+        const check = () =>{
+            cart.map(product=>{
+                if(product.id===item.id){
+                    setAdded(true)
+                }
+            })
+        }
+        check()
+    },[cart])
+
+    const updateCartOnline = async ()=>{
+        await firestore()
+        .collection('users')
+        .doc(user.uid)
+        .update({
+            cart:cart
+        })
+    }
+    const addToCart = async ()=>{
+        await setCart([item, ...cart])
+        await updateCartOnline()
+        alert(`${item.title} is added to your cart!`)
+    }
 
     return (
         <View style={styles.container}>
@@ -27,12 +55,10 @@ export default function ItemDetails({navigation, route}) {
             imageLoadingColor="#4b24ab" />
             <Text style={styles.title}>{item.title}</Text>
             </ScrollView>
-            <Button
+            <CartButton
+            added={added}
             style={styles.button}
-            text={text}
-            textColor="#fff"
-            buttonColor="#4b24ab"
-            onPress={()=>console.log(item.price)}/>
+            onPress={addToCart}/>
         </View>
     )
 }

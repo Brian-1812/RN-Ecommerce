@@ -3,7 +3,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import Store from '../tabs/Store'
 import Search from '../tabs/SearchTab'
-import Cart from '../tabs/CartTab'
+import CartTab from '../tabs/CartTab'
 import AuthStack from './AuthStack'
 
 const Tab = createMaterialBottomTabNavigator();
@@ -36,7 +36,7 @@ export default function BottomNav() {
               }} />
             <Tab.Screen
             name="Cart"
-            component={Cart}
+            component={CartTab}
             options={{
                 tabBarBadge:5,
                 tabBarLabel: 'Cart',

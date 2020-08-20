@@ -4,12 +4,10 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 export default function Button({text, textColor, buttonColor, onPress}) {
     const styles = StyleSheet.create({
         container:{
-            width:250,
-            height:60,
-            marginBottom:12,
-            marginRight:12,
+            width:150,
+            height:40,
             borderRadius:30,
-            alignSelf:'flex-end',
+            marginRight:15,
             backgroundColor:buttonColor,
             justifyContent: 'center',
             alignItems: 'center',
@@ -30,8 +28,8 @@ export default function Button({text, textColor, buttonColor, onPress}) {
         }
     })
     return (
-        <TouchableOpacity onPress={onPress}>
-            <View style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={onPress}>
+            <View>
                 <Text style={styles.text}>{text}</Text>
             </View>
         </TouchableOpacity>

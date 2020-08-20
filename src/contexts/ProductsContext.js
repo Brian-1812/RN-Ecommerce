@@ -6,7 +6,9 @@ export const ProductsContext = createContext()
 
 export default function ProductsContextProvider(props) {
     const [products, setProducts] = useState({})
-    var user = auth.currentUser
+    const [cart, setCart] = useState([])
+    var user = auth().currentUser
+    
     const getproduct = (product) => {
         var section = []
         firestore()
@@ -25,11 +27,26 @@ export default function ProductsContextProvider(props) {
         const clothes = getproduct('clothes')
         const parfumes = getproduct('parfumes')
         setProducts({Food:food,Drinks:drinks,Clothes:clothes,Parfumes:parfumes})
-        console.log(products)
+
+    },[])
+
+    useEffect(()=>{
+        const fetchData = async ()=>{
+            if(user){
+                const doc = await firestore()
+                .collection('users')
+                .doc(user.uid)
+                .get()
+                const products = await doc.data()
+                await setCart(products.cart)
+                // console.log(cart)
+            }
+        }
+        fetchData()
     },[user])
 
     return (
-        <ProductsContext.Provider value={{products}}>
+        <ProductsContext.Provider value={{products, cart, setCart}}>
             {props.children}
         </ProductsContext.Provider>
     )

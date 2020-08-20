@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {View,StyleSheet, TextInput,Modal, Text, TouchableOpacity} from 'react-native'
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore'
 import Button from './Button'
 import Confirmation from './Confirmation'
 
@@ -16,18 +17,19 @@ export default function RegisterView({navigation}) {
         if(password===password2){
             
             auth().createUserWithEmailAndPassword(email, password)
-            .then(()=>{
+            .then(async ()=>{
                     const user = auth().currentUser;
                     user.sendEmailVerification()
-                    .then(console.log("Email sent"))
                     .catch((error)=>console.log(error))
                     setConfirmModal(true)
-                    // auth().signInWithEmailAndPassword(email, password)
-                    // .then(()=>{
-                    //     console.log('RegisterView/Logged in')
-                    //     navigation.goBack()
-                    // })
-                    // .catch(err=>console.log(err))
+                    await firestore()
+                    .collection('users')
+                    .doc(user.uid)
+                    .set({
+                        email:user.email,
+                        cart:[]
+                    })
+                    
             })
             .catch(error => {
                 if (error.code === 'auth/email-already-in-use') {
