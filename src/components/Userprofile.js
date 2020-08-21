@@ -13,10 +13,14 @@ import {ProductsContext} from '../contexts/ProductsContext'
 export default function Userprofile({navigation}) {
     const [confirmModal, setConfirmModal] = useState(false)
     const user = auth().currentUser
-    const {products} = useContext(ProductsContext)
+    const {savedItems, completedOrders} = useContext(ProductsContext)
     const changeSelected = (item) => {
         navigation.navigate('ItemDetails', item)
     }
+    const data=[]
+    completedOrders.map(item=>{
+        data.push(...item.cart)
+    })
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -39,7 +43,7 @@ export default function Userprofile({navigation}) {
             <Text style={styles.completedOrders}>Completed orders</Text>
             <FlatList
                 style={styles.flatlist}
-                data={products["Food"]}
+                data={data}
                 initialNumToRender={3}
                 horizontal={true}
                 keyExtractor={item => item.id}
@@ -53,7 +57,7 @@ export default function Userprofile({navigation}) {
             <Text style={styles.completedOrders}>Saved items</Text>
             <FlatList
                 style={styles.flatlist}
-                data={products.Drinks}
+                data={savedItems}
                 initialNumToRender={3}
                 horizontal={true}
                 keyExtractor={item => item.id}

@@ -1,12 +1,13 @@
 import React, {useState, useEffect, useContext} from 'react'
-import { View, Text, StyleSheet,TouchableOpacity,Pressable, Image } from 'react-native'
+import { View, Text, StyleSheet,TouchableOpacity,Pressable, Image, Dimensions } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign'
 import {ProductsContext} from '../contexts/ProductsContext'
 
-
+const {height, width} = Dimensions.get("window")
 export default function CartItem({item}) {
     const {cart, setCart} = useContext(ProductsContext)
     const [disabled, setDisabled] = useState(false)
+    
     useEffect(()=>{
         if(item.count===1){
             setDisabled(true)
@@ -14,6 +15,7 @@ export default function CartItem({item}) {
             setDisabled(false)
         }
     }, [item.count])
+    
     const plus =async ()=>{
         await setCart(cart=>cart.map(product => {
             if(product.id===item.id){
@@ -22,6 +24,7 @@ export default function CartItem({item}) {
             return product
         }))
     }
+    
     const minus =async ()=>{
         await setCart(cart=>cart.map(product => {
             if(product.id===item.id){
@@ -54,11 +57,11 @@ export default function CartItem({item}) {
             </View>
             <View style={styles.right}>
                 <Text style={styles.rightPrice}>${item.price*item.count}</Text>
-                <View style={styles.remove}>
                 <TouchableOpacity onPress={remove}>
+                <View style={styles.remove}>
                 <Icon name="close" size={18} style={styles.icon}/>
+                </View>
                 </TouchableOpacity>
-                </View>  
             </View>
         </View>
     )
@@ -69,7 +72,7 @@ const styles = StyleSheet.create({
        flexDirection:'row',
        alignItems:"center",
        justifyContent: "space-between",
-       width:'94%',
+       width:width-5,
        backgroundColor: 'white',
        height:90,
        borderRadius:25,

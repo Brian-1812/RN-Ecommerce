@@ -7,6 +7,8 @@ export const ProductsContext = createContext()
 export default function ProductsContextProvider(props) {
     const [products, setProducts] = useState({})
     const [cart, setCart] = useState([])
+    const [completedOrders, setCompletedOrders] = useState([])
+    const [savedItems, setSavedItems] = useState([])
     var user = auth().currentUser
     
     const getproduct = (product) => {
@@ -37,16 +39,17 @@ export default function ProductsContextProvider(props) {
                 .collection('users')
                 .doc(user.uid)
                 .get()
-                const products = await doc.data()
-                await setCart(products.cart)
-                // console.log(cart)
+                const data = await doc.data()
+                await setCart(data.cart)
+                await setCompletedOrders(data.completedOrders)
+                await setSavedItems(data.savedItems)
             }
         }
         fetchData()
     },[user])
 
     return (
-        <ProductsContext.Provider value={{products, cart, setCart}}>
+        <ProductsContext.Provider value={{products, cart, setCart, completedOrders, setCompletedOrders, savedItems, setSavedItems}}>
             {props.children}
         </ProductsContext.Provider>
     )

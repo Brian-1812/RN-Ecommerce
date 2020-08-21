@@ -27,7 +27,9 @@ export default function RegisterView({navigation}) {
                     .doc(user.uid)
                     .set({
                         email:user.email,
-                        cart:[]
+                        cart:[],
+                        completedOrders:[],
+                        savedItems: []
                     })
                     
             })

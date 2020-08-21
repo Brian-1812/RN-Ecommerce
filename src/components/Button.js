@@ -4,8 +4,8 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 export default function Button({text, textColor, buttonColor, onPress}) {
     const styles = StyleSheet.create({
         container:{
-            width:150,
-            height:40,
+            width:220,
+            height:50,
             borderRadius:30,
             marginRight:15,
             backgroundColor:buttonColor,

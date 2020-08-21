@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {View, Text, TouchableOpacity, TextInput,Image, StyleSheet} from 'react-native'
 import auth from '@react-native-firebase/auth'
+import firestore from '@react-native-firebase/firestore'
 import storage from '@react-native-firebase/storage';
 import ImagePicker from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -15,12 +16,8 @@ export default function ProfileUpdate({setConfirmModal}) {
     const update = async () =>{
         const reference = storage().ref(`/userImages/${user.uid}.jpg`);
         const task = await reference.putFile(image.path);
-        // task.on('state_changed', taskSnapshot => {
-        //     console.log(`${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`);
-        // });
         const result = await reference.getDownloadURL()
 
-        
         user.updateProfile({
             displayName:username,
             photoURL:result
@@ -29,6 +26,13 @@ export default function ProfileUpdate({setConfirmModal}) {
             setConfirmModal(false)
         })
         .catch(err=>console.log(err))
+
+        await firestore()
+            .collection('users')
+            .doc(user.uid)
+            .update({
+                username:username
+            })
     }
 
     const uploadPhoto =()=>{

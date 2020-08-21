@@ -1,14 +1,11 @@
-import React, {useState, useEffect, useContext} from 'react'
-import {View, Text, FlatList, StyleSheet} from 'react-native'
-import auth from '@react-native-firebase/auth'
-import firestore from '@react-native-firebase/firestore'
+import React, { useContext} from 'react'
+import {View, FlatList, StyleSheet} from 'react-native'
 import CartItem from '../components/CartItem'
 import CartFooter from '../components/CartFooter'
 import {ProductsContext} from '../contexts/ProductsContext'
 
 export default function CartTab() {
-    const {cart, setCart} = useContext(ProductsContext)
-    // console.log(cart)
+    const {cart} = useContext(ProductsContext)
     
     
     return (
@@ -21,7 +18,7 @@ export default function CartTab() {
             renderItem={({item})=>(
                 <CartItem item={item}/>
             )}/>
-            <CartFooter cart={cart}/>
+            <CartFooter/>
         </View>
     )
 }
