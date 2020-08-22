@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import auth from '@react-native-firebase/auth';
 import LoginView from './LoginView'
 import Userprofile from './Userprofile'
@@ -21,7 +21,6 @@ const Auth = ({navigation}) => {
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    
     return subscriber; // unsubscribe on unmount
   }, []);
 

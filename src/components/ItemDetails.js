@@ -39,36 +39,36 @@ export default function ItemDetails({route}) {
         checkSaved()
     }, [savedItems])
 
-    const updateCartOnline = async ()=>{
-        await firestore()
-        .collection('users')
-        .doc(user.uid)
-        .update({
-            cart:cart
-        })
-    }
+    // const updateCartOnline = async ()=>{
+    //     await firestore()
+    //     .collection('users')
+    //     .doc(user.uid)
+    //     .update({
+    //         cart:cart
+    //     })
+    // }
     const addToCart = async ()=>{
         await setCart([item, ...cart])
-        await updateCartOnline()
+        // await updateCartOnline()
         alert(`${item.title} is added to your cart!`)
     }
     const save= ()=>{
         setSavedItems([item, ...savedItems])
-        firestore()
-        .collection('users')
-        .doc(user.uid)
-        .update({
-            savedItems:savedItems
-        })
+        // firestore()
+        // .collection('users')
+        // .doc(user.uid)
+        // .update({
+        //     savedItems:savedItems
+        // })
     }
     const unsave= () =>{
         setSavedItems(savedItems=>savedItems.filter(product=>product.id !== item.id))
-        firestore()
-        .collection('users')
-        .doc(user.uid)
-        .update({
-            savedItems:savedItems
-        })
+        // firestore()
+        // .collection('users')
+        // .doc(user.uid)
+        // .update({
+        //     savedItems:savedItems
+        // })
     }
 
 

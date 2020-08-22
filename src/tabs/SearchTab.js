@@ -1,55 +1,48 @@
-import React, {useState, useEffect} from 'react'
-import { View, Text, TextInput, StyleSheet, FlatList } from 'react-native'
+import React, {useState,useEffect, useContext} from 'react'
+import { View, Text, TextInput, StyleSheet,TouchableOpacity, FlatList } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
-import Products from '../components/Products'
 import BodyItem from '../components/BodyItem'
+import {ProductsContext} from '../contexts/ProductsContext'
 
-export default function Search() {
-    // const [isLoading, setisLoading] = useState(true)
+export default function Search({navigation}) {
+    const [data, setData] = useState([])
+    const [items, setItems] = useState([])
     const [query, setQuery] = useState('')
-    
-    // const products = Object.values(Products)
-    
-    // const results = []
-    // const filter = (items, index) =>{
-    //     setItems(items.filter((item)=>{
-    //         if(item.title===query){
-    //             results.push(item)
-    //         }
-    //     }))
-    // }
+    const {products} = useContext(ProductsContext)
 
-    // useEffect(() => {
-    //     if(query===''){
-    //       setisLoading(false)
-    //     }else{setisLoading(true)}
-        
-        
-    //     setItems(a.map((item, index)=>{
-    //        filter(item, index)
-    //     }))
+    useEffect(()=>{
+        setData([...products.Food, ...products.Clothes, ...products.Drinks, ...products.Parfumes])
+    }, [products])
 
-
-    //   }, [query])
-    // let data = Products
+    const search = (input) => {
+        setQuery(input)
+        let filteredData = data.filter(function (item) {
+          return item.title.toLowerCase().includes(query.toLowerCase());
+        });
+      
+        setItems(filteredData)
+      };
+    const navigate = (item) =>{
+        navigation.navigate('ItemDetails', item)
+    }
     return (
         <View style={styles.container}>
             <TextInput 
             style={styles.textInput}
             placeholder="Search..."
             placeholderTextColor="#4b24ab"
-            onChangeText={(input)=>setQuery(input)}
+            onChangeText={(input)=>search(input)}
             value={query}/>
             <Text style={styles.text}>Search results</Text>
-            {/* <FlatList
-            data={items}
+            <FlatList
+            data={query.length>0?items:data}
             numColumns={2}
             keyExtractor={item => item.title}
             renderItem={({item})=>{
                 return (
-                    <BodyItem item={item}/>
+                    <BodyItem item={item} navigate={navigate}/>
                 )
-            }}/> */}
+            }}/>
         </View>
     )
 }
@@ -71,7 +64,7 @@ const styles= StyleSheet.create({
 
         elevation: 8,
         borderRadius:30,
-        margin:15,
+        margin:10,
         padding:10,
         color:"#4b24ab"
 

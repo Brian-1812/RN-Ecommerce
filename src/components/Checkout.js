@@ -15,13 +15,13 @@ export default function Checkout({setIsVisible}) {
 
     const order= async ()=>{
         await setCompletedOrders([{id:user.uid, location, phone, cart, delivered:false}, ...completedOrders])
-        await firestore()
-        .collection('users')
-        .doc(user.uid)
-        .update({
-            completedOrders:completedOrders,
-            cart:[]
-        })
+        // await firestore()
+        // .collection('users')
+        // .doc(user.uid)
+        // .update({
+        //     completedOrders:completedOrders,
+        //     cart:[]
+        // })
         setCart([])
         alert("Done")
         setIsVisible(false)

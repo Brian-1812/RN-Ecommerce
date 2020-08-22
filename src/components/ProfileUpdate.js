@@ -15,8 +15,13 @@ export default function ProfileUpdate({setConfirmModal}) {
 
     const update = async () =>{
         const reference = storage().ref(`/userImages/${user.uid}.jpg`);
-        const task = await reference.putFile(image.path);
-        const result = await reference.getDownloadURL()
+        if(image){
+            const task = await reference.putFile(image.path);
+            var result = await reference.getDownloadURL()
+        }else{
+            var result = null
+        }
+        
 
         user.updateProfile({
             displayName:username,
