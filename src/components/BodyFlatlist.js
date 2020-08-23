@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react'
+import React, { useContext} from 'react'
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
 import BodyItem from './BodyItem'
 import {ProductsContext} from '../contexts/ProductsContext'
@@ -12,8 +12,8 @@ export default function BodyFlatlist({section, navigation}) {
     return (
         <View>
             <Text style={styles.title}>{section}</Text>
+            <View styles={styles.flatlist}>
             <FlatList
-            styles={styles.flatlist}
                 data={products[section]}
                 horizontal={true}
                 initialNumToRender={3}
@@ -22,7 +22,11 @@ export default function BodyFlatlist({section, navigation}) {
                     <BodyItem item={item} navigate={navigate}/>
                 )}
             />
-            <TouchableOpacity><Text style={styles.more}>See all</Text></TouchableOpacity>
+            </View>
+            
+            <TouchableOpacity onPress={()=>navigation.navigate('SeeAll', data=products[section])}>
+                <Text style={styles.more}>See all</Text>
+            </TouchableOpacity>
         </View>
     )
 }
@@ -37,7 +41,6 @@ const styles = StyleSheet.create({
     },
     flatlist:{
         backgroundColor:'#fff',
-        margin:10,
         marginBottom:20
     },
     more:{

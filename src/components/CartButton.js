@@ -10,11 +10,13 @@ export default function CartButton({added, onPress}) {
     }
     const styles = StyleSheet.create({
         container:{
-            width:250,
-            height:60,
-            marginBottom:12,
-            marginRight:12,
-            borderRadius:30,
+            width:220,
+            height:50,
+            // marginBottom:10,
+            marginRight:0,
+            // borderRadius:30,
+            borderBottomLeftRadius:30,
+            borderTopLeftRadius:30,
             alignSelf:'flex-end',
             backgroundColor:color,
             justifyContent: 'center',

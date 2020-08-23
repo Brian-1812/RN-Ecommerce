@@ -1,6 +1,7 @@
 import React, {useState, useEffect, createContext} from 'react'
 import firestore from '@react-native-firebase/firestore'
 import auth from '@react-native-firebase/auth'
+import { withSafeAreaInsets } from 'react-native-safe-area-context'
 
 export const ProductsContext = createContext()
 
@@ -10,6 +11,7 @@ export default function ProductsContextProvider(props) {
     const [cart, setCart] = useState([])
     const [completedOrders, setCompletedOrders] = useState([])
     const [savedItems, setSavedItems] = useState([])
+    const [wait, setWait] = useState(true)
     
     
     const getproduct = (product) => {
@@ -44,6 +46,7 @@ export default function ProductsContextProvider(props) {
                 await setCart(data.cart)
                 await setCompletedOrders(data.completedOrders)
                 await setSavedItems(data.savedItems)
+                setWait(false)
             }
         }
         fetchData()
@@ -60,8 +63,10 @@ export default function ProductsContextProvider(props) {
                 })
             }
         }
-        updateCart()
-    }, [cart])
+        if(!wait){
+            updateCart()
+        }
+    }, [cart, wait])
     useEffect(()=>{
         const updateSavedItems = async()=>{
             if(user){
@@ -73,8 +78,10 @@ export default function ProductsContextProvider(props) {
                 })
             }
         }
+        if(!wait){
         updateSavedItems()
-    }, [savedItems])
+        }
+    }, [savedItems, wait])
 
     useEffect(()=>{
         const updateCompletedOrders = async()=>{
@@ -87,8 +94,10 @@ export default function ProductsContextProvider(props) {
                 })
             }
         }
+        if(!wait){
         updateCompletedOrders()
-    }, [completedOrders])
+        }
+    }, [completedOrders, wait])
     return (
         <ProductsContext.Provider value={{products, cart, setCart, completedOrders, setCompletedOrders, savedItems, setSavedItems}}>
             {props.children}

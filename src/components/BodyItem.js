@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginHorizontal:7,
-        marginLeft:15,
+        // marginLeft:15,
         backgroundColor:'#fff',
         shadowColor: "#000",
         shadowOffset: {

@@ -34,6 +34,7 @@ export default function Search({navigation}) {
             onChangeText={(input)=>search(input)}
             value={query}/>
             <Text style={styles.text}>Search results</Text>
+            <View style={styles.flatlist}>
             <FlatList
             data={query.length>0?items:data}
             numColumns={2}
@@ -43,6 +44,7 @@ export default function Search({navigation}) {
                     <BodyItem item={item} navigate={navigate}/>
                 )
             }}/>
+            </View>
         </View>
     )
 }
@@ -50,7 +52,7 @@ export default function Search({navigation}) {
 const styles= StyleSheet.create({
     container: {
         backgroundColor:'#fff',
-        flex:1
+        flex:1,
     },
     textInput: {
         backgroundColor:'#fff',
@@ -75,5 +77,9 @@ const styles= StyleSheet.create({
         margin:3,
         marginLeft:20,
         fontWeight:'bold'
+    },
+    flatlist:{
+        alignItems:'center',
+        marginTop:15
     }
 })

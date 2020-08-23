@@ -1,26 +1,18 @@
-import React, {useState, useContext} from 'react'
-import {View, Text, TouchableOpacity,Modal, StyleSheet,ScrollView,Image, FlatList} from 'react-native'
+import React, {useState} from 'react'
+import {View, Text, TouchableOpacity,Modal, StyleSheet,ScrollView,Image} from 'react-native'
 import auth from '@react-native-firebase/auth'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Icon1 from 'react-native-vector-icons/FontAwesome5'
 import Icon2 from 'react-native-vector-icons/Ionicons'
+import HistoryItems from './HistoryItems'
 import ProfileUpdate from './ProfileUpdate'
-import SectionItem from './SectionItem'
-import {ProductsContext} from '../contexts/ProductsContext'
 
 
 
 export default function Userprofile({navigation}) {
     const [confirmModal, setConfirmModal] = useState(false)
     const user = auth().currentUser
-    const {savedItems, completedOrders} = useContext(ProductsContext)
-    const changeSelected = (item) => {
-        navigation.navigate('ItemDetails', item)
-    }
-    const data=[]
-    completedOrders.map(item=>{
-        data.push(...item.cart)
-    })
+    
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -38,44 +30,19 @@ export default function Userprofile({navigation}) {
                 <TouchableOpacity onPress={()=>setConfirmModal(true)}><Icon1 style={styles.icon1} name='user-edit' size={20} color='#4b24ab'/></TouchableOpacity>
                 </View>
             </View>
-
-            <View>
-            <Text style={styles.completedOrders}>Completed orders</Text>
-            <FlatList
-                style={styles.flatlist}
-                data={data}
-                initialNumToRender={3}
-                horizontal={true}
-                keyExtractor={item => item.id}
-                renderItem={({item})=>(
-                    <SectionItem item={item} changeSelected={changeSelected}/>
-                )}
-            />
-            <TouchableOpacity><Text style={styles.seeAll}>See all</Text></TouchableOpacity>
+            <HistoryItems navigation={navigation}/>
+            <View style={styles.line}></View>
+            <View style={styles.settings}>
+            <View style={styles.settingsItem}>
+                <Icon2 name="location-sharp" color="#4b24ab" size={30}/>
+                <Text style={{marginLeft:10}}>Location/Address settings</Text>
             </View>
-            <View>
-            <Text style={styles.completedOrders}>Saved items</Text>
-            <FlatList
-                style={styles.flatlist}
-                data={savedItems}
-                initialNumToRender={3}
-                horizontal={true}
-                keyExtractor={item => item.id}
-                renderItem={({item})=>(
-                    <SectionItem item={item} changeSelected={changeSelected}/>
-                )}
-            />
-            <TouchableOpacity><Text style={styles.seeAll}>See all</Text></TouchableOpacity>
+            <View style={styles.settingsItem}>
+                <Icon1 name="users-cog" color="#4b24ab" size={28}/>
+                <Text style={{marginLeft:10}}>Profile settings</Text>
+            </View> 
             </View>
-            
             </ScrollView>
-            <TouchableOpacity style={styles.exit} onPress={()=>{
-                auth().signOut().then(() => console.log('User signed out!'));
-            }}>
-                <View >
-                    <Icon2 name="exit-outline" size={42} color="#4b24ab"/>
-                </View>
-            </TouchableOpacity>
             <Modal
             animationType="slide"
             transparent={false}
@@ -85,7 +52,7 @@ export default function Userprofile({navigation}) {
         </View>
         
     )
-}
+} 
 
 
 const styles = StyleSheet.create({
@@ -93,30 +60,33 @@ const styles = StyleSheet.create({
         flex:1,
         backgroundColor:'#fff'
     },
-    flatlist:{
-        marginLeft:10
+    settings:{
+        margin:10
     },
-    completedOrders:{
-        color:"#4b24ab",
-        margin:15,
-        marginTop:0,
-        fontSize:20,
-        fontWeight: 'bold'
+    settingsItem:{
+        flexDirection:"row",
+        margin:8,
+        alignItems:"center"
     },
-    seeAll:{
-        color:"#b434eb",
-        fontSize:15,
-        alignSelf:'flex-start',
-        margin:15,
-        marginTop:5
+    line:{
+        margin:10,
+        height:1,
+        backgroundColor:"#4b24ab",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 6,
+        },
+        shadowOpacity: 0.23,
+        shadowRadius: 2.62,
+
+        elevation: 8,
     },
     header:{
         flexDirection:'row',
         alignItems:'center',
         margin: 15,
         justifyContent:'space-between',
-        borderBottomWidth:1,
-        borderBottomColor:"#b434eb",
     },
     headerLeft:{
         flexDirection:'row',
@@ -129,39 +99,6 @@ const styles = StyleSheet.create({
         color:"#4b24ab",
         fontSize:20,
         fontWeight:'bold'
-    },
-    completeProfile:{
-        height:50,
-        backgroundColor:"#4b24ab",
-        margin:0,
-        alignItems:"center",
-        justifyContent:'center'
-    },
-    completeProfText:{
-        color:'#fff',
-        fontSize:20,
-        fontWeight:'bold'
-    },
-    exit:{
-        position:'absolute',
-        backgroundColor: "#fff",
-        right:20,
-        bottom:20,
-        width:60,
-        height:60,
-        borderRadius:30,
-        alignItems:'center',
-        justifyContent:"center",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 10,
-        },
-        shadowOpacity: 0.23,
-        shadowRadius: 2.62,
-
-        elevation: 15,
-
     },
     profileImage:{
         width:70,

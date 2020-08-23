@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 import Store from '../tabs/Store'
 import Search from '../tabs/SearchTab'
 import CartTab from '../tabs/CartTab'
-import AuthStack from './AuthStack'
+import Auth from '../components/Auth'
 import {ProductsContext} from '../contexts/ProductsContext'
 
 const Tab = createMaterialBottomTabNavigator();
@@ -53,7 +53,7 @@ export default function BottomNav() {
             }} />
           <Tab.Screen
           name="Profile"
-          component={AuthStack}
+          component={Auth}
           options={{
               tabBarLabel: 'Profile',
               tabBarIcon: ({ color }) => (

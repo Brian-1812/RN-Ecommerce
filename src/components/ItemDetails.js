@@ -2,18 +2,16 @@ import React, {useState, useEffect, useContext} from 'react'
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { SliderBox } from "react-native-image-slider-box";
-import firestore from '@react-native-firebase/firestore'
-import auth from '@react-native-firebase/auth'
 import CartButton from './CartButton'
 import {ProductsContext} from '../contexts/ProductsContext'
+import BodyFlatlist from './BodyFlatlist'
 
 
-export default function ItemDetails({route}) {
+export default function ItemDetails({route, navigation}) {
     const [added, setAdded] = useState(false)
     const [saved, setSaved] = useState(false)
-    const {cart, setCart, savedItems, setSavedItems} = useContext(ProductsContext)
+    const {cart, setCart, savedItems, setSavedItems, products} = useContext(ProductsContext)
     const item = route.params
-    const user = auth().currentUser
 
     useEffect(()=>{
         const checkCart = () =>{
@@ -39,36 +37,15 @@ export default function ItemDetails({route}) {
         checkSaved()
     }, [savedItems])
 
-    // const updateCartOnline = async ()=>{
-    //     await firestore()
-    //     .collection('users')
-    //     .doc(user.uid)
-    //     .update({
-    //         cart:cart
-    //     })
-    // }
     const addToCart = async ()=>{
         await setCart([item, ...cart])
-        // await updateCartOnline()
         alert(`${item.title} is added to your cart!`)
     }
     const save= ()=>{
         setSavedItems([item, ...savedItems])
-        // firestore()
-        // .collection('users')
-        // .doc(user.uid)
-        // .update({
-        //     savedItems:savedItems
-        // })
     }
     const unsave= () =>{
         setSavedItems(savedItems=>savedItems.filter(product=>product.id !== item.id))
-        // firestore()
-        // .collection('users')
-        // .doc(user.uid)
-        // .update({
-        //     savedItems:savedItems
-        // })
     }
 
 
@@ -85,26 +62,41 @@ export default function ItemDetails({route}) {
             resizeMode={'cover'}
             dotColor="#fff"
             inactiveDotColor="#4b24ab"
-            // ImageComponentStyle={{marginTop: 1, marginBottom: 15}}
             imageLoadingColor="#4b24ab" />
-            <View>
+            <View style={{flexDirection:"row", justifyContent:"space-between"}}>
             <Text style={styles.title}>{item.title}</Text>
-            {saved?
-            <TouchableOpacity onPress={unsave}>
-            <Icon name="bookmark" size={22}/>
-            </TouchableOpacity>
-            :
-            <TouchableOpacity onPress={save}>
-            <Icon name="bookmark-outline" size={22}/>
-            </TouchableOpacity>
-            }
-            
+            <Text style={styles.title}>${item.price}</Text>
+            </View>
+            <View>
+                <Text style={styles.description}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Phasellus sem nisi, iaculis sit amet nibh sed, iaculis tempus nunc.
+                Proin in tortor sed mauris consectetur gravida. Etiam sit amet dolor in
+                felis eleifend pharetra id sit amet tortor. Quisque vitae quam porttitor,
+                laoreet nisi vel, rutrum purus.
+                Nullam sit amet nisl in felis feugiat bibendum.
+                </Text>
             </View>
             </ScrollView>
+            <View style={styles.footer}>
+            {saved?
+            <View style={styles.save}>
+            <TouchableOpacity onPress={unsave}>
+            <Icon name="heart" size={30} color="#4b24ab"/>
+            </TouchableOpacity>
+            </View>
+            :
+            <View style={styles.save}>
+            <TouchableOpacity onPress={save}>
+            <Icon name="heart-outline" size={30} color="#4b24ab"/>
+            </TouchableOpacity>
+            </View>
+            }
             <CartButton
             added={added}
             style={styles.button}
             onPress={addToCart}/>
+            </View>
         </View>
     )
 }
@@ -119,5 +111,38 @@ const styles = StyleSheet.create({
         fontSize:22,
         fontWeight: 'bold',
         margin:10
+    },
+    footer:{
+        flexDirection:"row",
+        alignItems: "center",
+        justifyContent:"space-between"
+    },
+    save:{
+        width:50,
+        height:50,
+        alignItems:"center",
+        justifyContent:"center",
+        backgroundColor:'#fff',
+        borderRadius:50,
+        marginBottom:7,
+        marginLeft:15,
+        shadowColor: "#000",
+            shadowOffset: {
+                width: 4,
+                height: 4,
+            },
+            shadowOpacity: 0.56,
+            shadowRadius: 3.62,
+
+            elevation: 8,
+    },
+    description:{
+        margin:10,
+        marginLeft:15,
+        fontSize:17,
+        color:"#333",
+        alignItems:"center",
+        justifyContent:"center",
+        width:"80%"
     }
 })

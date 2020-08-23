@@ -1,7 +1,7 @@
 import React, {useState, useContext} from 'react'
 import { View, Text, TextInput, StyleSheet } from 'react-native'
 import auth from '@react-native-firebase/auth'
-import firestore from '@react-native-firebase/firestore'
+import nextId from "react-id-generator"
 import {ProductsContext} from '../contexts/ProductsContext'
 import Button from './Button'
 
@@ -14,14 +14,8 @@ export default function Checkout({setIsVisible}) {
 
 
     const order= async ()=>{
-        await setCompletedOrders([{id:user.uid, location, phone, cart, delivered:false}, ...completedOrders])
-        // await firestore()
-        // .collection('users')
-        // .doc(user.uid)
-        // .update({
-        //     completedOrders:completedOrders,
-        //     cart:[]
-        // })
+        await setCompletedOrders([{id:nextId(), location, phone, cart, delivered:false}, ...completedOrders])
+       
         setCart([])
         alert("Done")
         setIsVisible(false)

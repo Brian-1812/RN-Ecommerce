@@ -48,7 +48,7 @@ export default function LoginView({navigation}) {
             onChangeText={text => setPassword(text)}
             value={password}/>
             
-            <TouchableOpacity >
+            <TouchableOpacity onPress={()=>navigation.navigate('ForgotPassword')}>
                 <Text style={styles.forgotPassword}>Forgot password?</Text>
             </TouchableOpacity>
             
