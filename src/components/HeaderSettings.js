@@ -8,7 +8,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import Button from './Button'
 
 
-export default function ProfileUpdate({setConfirmModal}) {
+export default function HeaderSettings({setHeaderSettings}) {
     const user = auth().currentUser
     const [username, setUsername] = useState(user.displayName)
     const [image, setImage] = useState(null)
@@ -28,7 +28,7 @@ export default function ProfileUpdate({setConfirmModal}) {
             photoURL:result
         }).then(()=>{
             alert('Updated')
-            setConfirmModal(false)
+            setHeaderSettings(false)
         })
         .catch(err=>console.log(err))
 
@@ -52,7 +52,7 @@ export default function ProfileUpdate({setConfirmModal}) {
     return (
         <View style={styles.container}>
             <TouchableOpacity  onPress={()=>{
-                setConfirmModal(false)
+                setHeaderSettings(false)
                 }} style={{marginBottom:60}}>
                 <Icon style={styles.close} name="md-close-outline" size={25} color="#4b24ab"/>
             </TouchableOpacity>

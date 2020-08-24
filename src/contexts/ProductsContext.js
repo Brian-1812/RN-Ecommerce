@@ -12,7 +12,29 @@ export default function ProductsContextProvider(props) {
     const [completedOrders, setCompletedOrders] = useState([])
     const [savedItems, setSavedItems] = useState([])
     const [wait, setWait] = useState(true)
-    
+    const [userInfo, setUserInfo] = useState({})
+
+    useEffect(()=>{
+        const getInfo = async()=>{
+            if(user){
+            const doc = await firestore()
+            .collection("users")
+            .doc(user.uid)
+            .get()
+            const data = await doc.data()
+            await setUserInfo({
+                email:data.email,
+                phoneNumber:data.phoneNumber,
+                city:data.defaultLocation.city,
+                street:data.defaultLocation.street})
+            await setCart(data.cart)
+            await setCompletedOrders(data.completedOrders)
+            await setSavedItems(data.savedItems)
+            setWait(false)
+            }
+        }
+        getInfo()
+    }, [user])
     
     const getproduct = (product) => {
         var section = []
@@ -34,23 +56,6 @@ export default function ProductsContextProvider(props) {
         setProducts({Food:food,Drinks:drinks,Clothes:clothes,Parfumes:parfumes})
 
     },[])
-    
-    useEffect(()=>{
-        const fetchData = async ()=>{
-            if(user){
-                const doc = await firestore()
-                .collection('users')
-                .doc(user.uid)
-                .get()
-                const data = await doc.data()
-                await setCart(data.cart)
-                await setCompletedOrders(data.completedOrders)
-                await setSavedItems(data.savedItems)
-                setWait(false)
-            }
-        }
-        fetchData()
-    }, [user])
 
     useEffect(()=>{
         const updateCart = async()=>{
@@ -99,7 +104,9 @@ export default function ProductsContextProvider(props) {
         }
     }, [completedOrders, wait])
     return (
-        <ProductsContext.Provider value={{products, cart, setCart, completedOrders, setCompletedOrders, savedItems, setSavedItems}}>
+        <ProductsContext.Provider value={{
+            products, cart, setCart, completedOrders, setCompletedOrders,
+            savedItems, setSavedItems, userInfo, setUserInfo}}>
             {props.children}
         </ProductsContext.Provider>
     )

@@ -5,12 +5,16 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import Icon1 from 'react-native-vector-icons/FontAwesome5'
 import Icon2 from 'react-native-vector-icons/Ionicons'
 import HistoryItems from './HistoryItems'
-import ProfileUpdate from './ProfileUpdate'
+import HeaderSettings from './HeaderSettings'
+import ProfileSettings from './ProfileSettings'
+import LocationSettings from './LocationSettings'
 
 
 
 export default function Userprofile({navigation}) {
-    const [confirmModal, setConfirmModal] = useState(false)
+    const [headerSettings, setHeaderSettings] = useState(false)
+    const [locationSettings, setLocationSettings] = useState(false)
+    const [profileSettings, setProfileSettings] = useState(false)
     const user = auth().currentUser
     
     return (
@@ -20,34 +24,50 @@ export default function Userprofile({navigation}) {
                 <View style={styles.headerLeft}>
                     {user.photoURL?
                     <Image source={{uri: user.photoURL}} style={styles.profileImage}/>:
-                    <Icon style={styles.icon}name="user-circle-o" size={60} color="black"/>}
+                    <Icon1 style={styles.icon} name="user-alt" size={40} color="#4b24ab"/>}
                     {user.displayName?
                     <Text style={styles.name}>{user.displayName}</Text>:
-                    <TouchableOpacity onPress={()=>setConfirmModal(true)}><Text style={styles.name}>Complete your profile</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={()=>setHeaderSettings(true)}>
+                        <Text style={styles.name}>Complete your Profile</Text>
+                    </TouchableOpacity>
                     }
                 </View>
                 <View>
-                <TouchableOpacity onPress={()=>setConfirmModal(true)}><Icon1 style={styles.icon1} name='user-edit' size={20} color='#4b24ab'/></TouchableOpacity>
+                <TouchableOpacity onPress={()=>setHeaderSettings(true)}>
+                    <Icon1 style={styles.icon1} name='user-edit' size={20} color='#4b24ab'/>
+                </TouchableOpacity>
                 </View>
             </View>
             <HistoryItems navigation={navigation}/>
             <View style={styles.line}></View>
             <View style={styles.settings}>
-            <View style={styles.settingsItem}>
+            <TouchableOpacity style={styles.settingsItem} onPress={()=>setLocationSettings(true)}>
                 <Icon2 name="location-sharp" color="#4b24ab" size={30}/>
                 <Text style={{marginLeft:10}}>Location/Address settings</Text>
-            </View>
-            <View style={styles.settingsItem}>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.settingsItem} onPress={()=>setProfileSettings(true)}>
                 <Icon1 name="users-cog" color="#4b24ab" size={28}/>
                 <Text style={{marginLeft:10}}>Profile settings</Text>
-            </View> 
+            </TouchableOpacity> 
             </View>
             </ScrollView>
             <Modal
             animationType="slide"
             transparent={false}
-            visible={confirmModal}
-            ><ProfileUpdate setConfirmModal={setConfirmModal}/>
+            visible={headerSettings}
+            ><HeaderSettings setHeaderSettings={setHeaderSettings}/>
+            </Modal>
+            <Modal
+            animationType="slide"
+            transparent={false}
+            visible={locationSettings}
+            ><LocationSettings setLocationSettings={setLocationSettings}/>
+            </Modal>
+            <Modal
+            animationType="slide"
+            transparent={false}
+            visible={profileSettings}
+            ><ProfileSettings setProfileSettings={setProfileSettings}/>
             </Modal>
         </View>
         

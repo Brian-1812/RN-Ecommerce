@@ -82,13 +82,13 @@ export default function ItemDetails({route, navigation}) {
             {saved?
             <View style={styles.save}>
             <TouchableOpacity onPress={unsave}>
-            <Icon name="heart" size={30} color="#4b24ab"/>
+            <Icon name="heart" size={30} color="#d11925"/>
             </TouchableOpacity>
             </View>
             :
             <View style={styles.save}>
             <TouchableOpacity onPress={save}>
-            <Icon name="heart-outline" size={30} color="#4b24ab"/>
+            <Icon name="heart-outline" size={30} color="#d11925"/>
             </TouchableOpacity>
             </View>
             }

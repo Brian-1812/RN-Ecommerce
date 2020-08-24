@@ -1,10 +1,12 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 import auth from '@react-native-firebase/auth'
 import Icon2 from 'react-native-vector-icons/Ionicons'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import {ProductsContext} from '../contexts/ProductsContext'
 
 export default function HistoryItems({navigation}) {
+    const {savedItems} = useContext(ProductsContext)
     return (
         <View style={styles.products}>
             <View style={{flexDirection:"row"}}>
@@ -14,9 +16,9 @@ export default function HistoryItems({navigation}) {
             </View>
             <Text style={styles.sectionText}>Orders</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>{navigation.navigate("Favorites")}} style={{alignItems:"center", margin:8}}>
+            <TouchableOpacity onPress={()=>{navigation.navigate("Favorites", {cart:false, title:"Favorites"})}} style={{alignItems:"center", margin:8}}>
             <View style={styles.itemSection}>
-                <Icon2 name="heart" size={36} color="#4b24ab"/>
+                <Icon2 name="heart" size={36} color="#d11925"/>
             </View>
             <Text style={styles.sectionText}>Favorites</Text>
             </TouchableOpacity>

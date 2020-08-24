@@ -1,21 +1,34 @@
 import React, {useState, useEffect} from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native'
+import { View, Text, Pressable, StyleSheet, Dimensions } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const {height, width} = Dimensions.get("window")
-export default function OrderItem({navigation, item}) {
-    const data =item.cart
-    console.log(item)
+export default function OrderItem({navigation, remove, item}) {
+    const [data, setData] = useState(item.cart)
+    
     return (
-        <TouchableOpacity onPress={()=>navigation.navigate("SeeAll", data)} style={styles.container}>
-            <View style={styles.left}>
-            <View style={{marginLeft:7}}>
-                <Icon name={item.delivered?"truck-check":"truck-fast"} size={30} color="black"/>
-                <Text style={{fontSize:18, color:"black"}}>{item.location}</Text>
-                {/* <Text>Total Cost: ${item.price}</Text> */}
+        <View style={styles.container}>
+        <Pressable onPress={()=>navigation.navigate("Favorites", {cart:data, title:"Order"})} style={styles.left}>
+            <View style={{flexDirection:"row", alignItems: "center", justifyContent:"center"}}>
+            <Icon name={item.delivered?"truck-check":"truck-fast"} size={36} color="#4b24ab"/>
+            <Text style={{fontSize:18, color:"#710096", marginHorizontal:10}}>
+                For {item.location.city}
+            </Text>
             </View>
+            <View>
+            {item.delivered?
+            <Text color="#000">Delivered</Text>:
+            <Text color="#000">Pending</Text>}
             </View>
-        </TouchableOpacity>
+        </Pressable>
+        <View style={styles.right}>
+        <Pressable onPress={()=>remove(item)}>
+            <View style={styles.remove}>
+            <Icon name="delete" size={25} style={styles.icon}/>
+            </View>
+        </Pressable>
+        </View>
+        </View>
     )
 }
 const styles = StyleSheet.create({
@@ -26,7 +39,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         width:width-5,
         backgroundColor: 'white',
-        height:90,
+        height:70,
         borderRadius:25,
         shadowColor: "#000",
          shadowOffset: {
@@ -45,13 +58,13 @@ const styles = StyleSheet.create({
         fontSize:18
     },
     icon:{
-        color: 'white',
+        color: '#b0002f',
         margin:3,
     },
     left:{
-        flexDirection:"row",
-        marginHorizontal:5,
-        alignItems:'center',
+        marginHorizontal:10,
+        padding:5,
+        // alignItems:'center',
         justifyContent:'center',
     },
     right:{
@@ -59,5 +72,14 @@ const styles = StyleSheet.create({
         height:"100%",
         alignItems:'center',
         justifyContent:'center',
-    }
+    },
+    remove: {
+        backgroundColor:"#fff",
+        borderTopRightRadius:20,
+        borderBottomRightRadius:20,
+        height:"100%",
+        alignItems:'center',
+        justifyContent:'center',
+        paddingHorizontal:2
+    },
  })

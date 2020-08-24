@@ -5,7 +5,9 @@ import { View, StyleSheet, Image} from 'react-native'
 
 const Header = () => {
   return (
-   <View style={styles.header}><Image source={require('../assets/logo.png')} style={{width: 120, height:50}}></Image></View>
+   <View style={styles.header}>
+     <Image source={require('../assets/logo.png')} style={{width: 120, height:50}}></Image>
+  </View>
   );
 };
 

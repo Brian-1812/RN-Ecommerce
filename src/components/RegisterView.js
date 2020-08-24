@@ -29,7 +29,12 @@ export default function RegisterView({navigation}) {
                         email:user.email,
                         cart:[],
                         completedOrders:[],
-                        savedItems: []
+                        savedItems: [],
+                        phoneNumber:"",
+                        defaultLocation:{
+                            city:"",
+                            street:""
+                        }
                     })
                     
             })

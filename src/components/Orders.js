@@ -4,7 +4,11 @@ import OrderItem from './OrderItem'
 import {ProductsContext} from '../contexts/ProductsContext'
 
 export default function Orders({navigation}) {
-    const {completedOrders} = useContext(ProductsContext)
+    const {completedOrders, setCompletedOrders} = useContext(ProductsContext)
+
+    const remove= async (item)=>{
+        await setCompletedOrders(completedOrders=>completedOrders.filter(product=>product.id !== item.id))
+    }
     return (
         <View style={styles.container}>
             <FlatList
@@ -13,7 +17,7 @@ export default function Orders({navigation}) {
             keyExtractor={item=>item.id}
             initialNumToRender={4}
             renderItem={({item})=>(
-                <OrderItem navigation={navigation} item={item}/>
+                <OrderItem navigation={navigation} item={item} remove={remove}/>
             )}/>
         </View>
     )
