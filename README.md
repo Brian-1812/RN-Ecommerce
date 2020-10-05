@@ -1,3 +1,3 @@
 # ecommerce-app
 react-native app
-![alt text](https://photos.app.goo.gl/kJ9rho83HjmzdjUD7)
+images:https://photos.app.goo.gl/KLmbbVVcWrbrR8XF7
