@@ -2,6 +2,7 @@
 Here are the images
 images:https://photos.app.goo.gl/KLmbbVVcWrbrR8XF7
 
+![alt text](https://github.com/Brian-1812/ecommerce-app/blob/master/image.jpg?raw=true)
 ### Built with Google FireBase, so enter your credentials of Firebase...
 
 ### `npm install`
