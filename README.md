@@ -1,34 +1,49 @@
-# ecommerce-app
+## E-commerce app built with React Native
 
-Here are the images
-images:https://photos.app.goo.gl/KLmbbVVcWrbrR8XF7
+# Tech-stack:
+
+- React Native
+- Context API
+- Auth -> Firebase Auth
+- DB -> Firebase Realtime DB
+- Storage -> Firebase storage (images)
+
+# Home screen
 
 ![alt text](https://github.com/Brian-1812/ecommerce-app/blob/master/images/home.png?raw=true)
 
+# Home screen
+
 ![alt text](https://github.com/Brian-1812/ecommerce-app/blob/master/images/home2.png?raw=true)
+
+# Cart screen
 
 ![alt text](https://github.com/Brian-1812/ecommerce-app/blob/master/images/cart.png?raw=true)
 
+# Product details screen
+
 ![alt text](https://github.com/Brian-1812/ecommerce-app/blob/master/images/details.png?raw=true)
+
+# User address edit
 
 ![alt text](https://github.com/Brian-1812/ecommerce-app/blob/master/images/editaddress.png?raw=true)
 
+# Edit profile screen
+
 ![alt text](https://github.com/Brian-1812/ecommerce-app/blob/master/images/editprofile.png?raw=true)
+
+# Profile screen
 
 ![alt text](https://github.com/Brian-1812/ecommerce-app/blob/master/images/profile.png?raw=true)
 
+# Update profile screen
+
 ![alt text](https://github.com/Brian-1812/ecommerce-app/blob/master/images/profile2.png?raw=true)
+
+# Register screen
 
 ![alt text](https://github.com/Brian-1812/ecommerce-app/blob/master/images/register.png?raw=true)
 
+# Favorites screen
+
 ![alt text](https://github.com/Brian-1812/ecommerce-app/blob/master/images/saved.png?raw=true)
-
-### Built with Google FireBase, so enter your credentials of Firebase...
-
-### `npm install`
-
-Install all the dependencies
-
-## `npx react-native run-android` or `react-native run-android`
-
-Build and run the application on Android Studio
